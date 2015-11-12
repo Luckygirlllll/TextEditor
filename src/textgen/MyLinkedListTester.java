@@ -113,7 +113,21 @@ public class MyLinkedListTester {
 		assertEquals("Remove: check a is correct ", 65, a);
 		assertEquals("Remove: check element 0 is correct ", (Integer)21, list1.get(0));
 		assertEquals("Remove: check size is correct ", 2, list1.size());
+		assertEquals("Remove: check element 0 is correct ", (Integer)42, list1.get(1));
+		try {
+			list1.remove(-1);
+			fail("Check out of bounds");
+		}
+		catch (IndexOutOfBoundsException e) {
 		
+		}
+		try {
+			list1.remove(5);
+			fail("Check out of bounds");
+		}
+		catch (IndexOutOfBoundsException e) {
+		
+		}
 		// TODO: Add more tests here
 	}
 	
@@ -123,6 +137,13 @@ public class MyLinkedListTester {
 	@Test
 	public void testAddEnd()
 	{
+		shortList.add("C");
+		emptyList.add(1);
+	
+		assertEquals("check is it a correct adding of the element","C", shortList.get(2));
+		assertEquals("check is it a correct adding of the element", (Integer)1, emptyList.get(0));
+		assertEquals("check size is correct ", 3, shortList.size());
+		
         // TODO: implement this test
 		
 	}
@@ -132,6 +153,9 @@ public class MyLinkedListTester {
 	@Test
 	public void testSize()
 	{
+		assertEquals("check size is correct ", 3, list1.size());
+		assertEquals("check size is correct ", 0, emptyList.size());
+		assertEquals("check size is correct ", 2, shortList.size());
 		// TODO: implement this test
 	}
 
@@ -144,6 +168,23 @@ public class MyLinkedListTester {
 	@Test
 	public void testAddAtIndex()
 	{
+		shortList.add(1,"C");
+		assertEquals("check is it a correct adding of the element","C", shortList.get(1));
+		assertEquals("check is it a correct adding of the element","B", shortList.get(2));
+		assertEquals("check size is correct ", 3, shortList.size());
+		try {
+			shortList.add(-1,"G");
+			fail("Check out of bounds");
+		}
+		catch (IndexOutOfBoundsException e) {
+		}
+		try {
+			shortList.add(5,"G");
+			fail("Check out of bounds");
+		}
+		catch (IndexOutOfBoundsException e) {
+		}
+		
         // TODO: implement this test
 		
 	}
@@ -152,6 +193,24 @@ public class MyLinkedListTester {
 	@Test
 	public void testSet()
 	{
+		try {
+			shortList.set(-1, "D");
+			fail("Check out of bounds");
+		}
+		catch (IndexOutOfBoundsException e) {
+		
+		}
+		try {
+			shortList.set(5,"E");
+			fail("Check out of bounds");
+		}
+		catch (IndexOutOfBoundsException e) {
+		
+		}
+		shortList.set(1,"G");
+		assertEquals("check is it a correct adding of the element","G", shortList.get(1));
+		assertEquals("check is it a correct adding of the element","A", shortList.get(0));
+		assertEquals("check size is correct ", 2, shortList.size());
 	    // TODO: implement this test
 	    
 	}
