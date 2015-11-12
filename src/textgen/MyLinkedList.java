@@ -113,6 +113,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
    public void add(int index, E element )
    {
        checkBoundsInclusive(index);
+       checkNullElement(element);
        LLNode<E> e = new LLNode<E>(element);
 
        if (index < size)
@@ -193,9 +194,17 @@ public class MyLinkedList<E> extends AbstractList<E> {
     * @return The element that was replaced
     * @throws IndexOutOfBoundsException if the index is out of bounds.
     */
+   private void checkNullElement(E element)
+   {
+       if (element==null)
+           throw new NullPointerException("Element: " + element);
+           		 }
+           	
+   
    public E set(int index, E element)
    {
        checkBoundsInclusive(index);
+       checkNullElement(element);
        LLNode<E> e =getEntry(index);
        E old = e.data;
        e.data = element;

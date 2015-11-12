@@ -184,6 +184,13 @@ public class MyLinkedListTester {
 		}
 		catch (IndexOutOfBoundsException e) {
 		}
+		try {
+			shortList.add(1, null);
+			fail("Check out of bounds");
+		}
+		catch (NullPointerException e) {
+		
+		}
 		
         // TODO: implement this test
 		
@@ -204,9 +211,18 @@ public class MyLinkedListTester {
 			shortList.set(5,"E");
 			fail("Check out of bounds");
 		}
+		
 		catch (IndexOutOfBoundsException e) {
 		
 		}
+		try {
+			shortList.set(1, null);
+			fail("Check out of bounds");
+		}
+		catch (NullPointerException e) {
+		
+		}
+		
 		shortList.set(1,"G");
 		assertEquals("check is it a correct adding of the element","G", shortList.get(1));
 		assertEquals("check is it a correct adding of the element","A", shortList.get(0));
