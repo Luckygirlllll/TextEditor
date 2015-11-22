@@ -1,6 +1,7 @@
 package spelling;
 
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 import java.util.Collection;
 import java.util.HashMap;
@@ -69,21 +70,20 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	{
 		
 			// TODO: Implement this method
+		{
+			TrieNode current = root;
 			s = s.toLowerCase();
-			char[] ch = s.toCharArray();
-			TrieNode curr = root;
-			int i = 0;
-			while(curr != null){
-				if(! s.equals(curr.getText())){			
-					if(curr.getChild(ch[i])!=null){
-						curr=curr.getChild(ch[i]);
-					i++;}
-					else return false;					
-				} else {
-					return true;
-			}
-		}
+		    for (Character x : s.toCharArray()) {
+		    	if(current.getChild(x)==null){
+		    		return false;
+		    	}
+		    	else	current = current.getChild(x); 
+		    }
+		    if(current.endsWord()) {
+		    	return true;
+		    }
 			return false;
+		}
 	}
 		
 	 
@@ -113,9 +113,31 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     	 //       If it is a word, add it to the completions list
     	 //       Add all of its child nodes to the back of the queue
     	 // Return the list of completions
-    	 
-         return null;
-     }
+    	 List<String> temp = new LinkedList<String>();
+    	 TrieNode t = root;
+    	 int flag = 0;
+    	 char[] str = (prefix.toLowerCase()).toCharArray();
+    	 for(char i : str)
+    	 {
+    	 if(t.getChild(i)!=null)
+    	 t = t.getChild(i);
+    	 else
+    	 flag = 1;
+    	 }
+    	 if(flag == 1) return null;
+    	 Queue<TrieNode> q = new LinkedList<TrieNode>();
+    	 q.add(t);
+    	 while(q.size()!=0 && numCompletions > 0)
+    	 {
+    	 TrieNode z = q.remove();
+    	 if(z.endsWord())
+    	 temp.add(z.getText());
+    	 for(char s : z.getValidNextCharacters())
+    	 q.add(z.getChild(s));
+    	 numCompletions--;}
+return temp;
+}
+
 
  	// For debugging
  	public void printTree()
