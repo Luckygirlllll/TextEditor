@@ -124,7 +124,8 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     	 else
     	 flag = 1;
     	 }
-    	 if(flag == 1) return null;
+    	 if(flag == 1) 
+    		 return new LinkedList<>();
     	 Queue<TrieNode> q = new LinkedList<TrieNode>();
     	 q.add(t);
     	 while(q.size()!=0 && numCompletions > 0)
@@ -134,8 +135,11 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     	 temp.add(z.getText());
     	 for(char s : z.getValidNextCharacters())
     	 q.add(z.getChild(s));
-    	 numCompletions--;}
+    	
+    	 }
+    	 numCompletions--;
 return temp;
+
 }
 
 
