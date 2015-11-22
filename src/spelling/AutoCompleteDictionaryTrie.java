@@ -13,8 +13,9 @@ import java.util.LinkedList;
  */
 public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 
-    private TrieNode root;
+   private TrieNode root;
     private int size;
+    public String word;
     
 
     public AutoCompleteDictionaryTrie()
@@ -28,8 +29,27 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	 * That is, you should convert the string to all lower case as you insert it. */
 	public boolean addWord(String word)
 	{
+		 boolean result = false;
+		    TrieNode prevN = root;
+		    TrieNode nextN = null;
+			word = word.toLowerCase();
+			for (char ch:word.toCharArray()){
+				nextN = prevN.insert(ch);
+				if (nextN==null){
+					nextN = prevN.getChild(ch);
+				}
+				prevN = nextN;
+			}
+			if (!nextN.endsWord()) {
+				nextN.setEndsWord(true);
+				size++;
+				result = true;
+			}
+		return result;
+		
+			
 	    //TODO: Implement this method.
-	    return false;
+	   
 	}
 	
 	/** 
@@ -37,9 +57,9 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	 * as the number of TrieNodes in the trie.
 	 */
 	public int size()
-	{
-	    //TODO: Implement this method
-	    return 0;
+	{    
+		return size;
+
 	}
 	
 	
@@ -47,9 +67,27 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	@Override
 	public boolean isWord(String s) 
 	{
-	    // TODO: Implement this method
-		return false;
+		
+			// TODO: Implement this method
+			s = s.toLowerCase();
+			char[] ch = s.toCharArray();
+			TrieNode curr = root;
+			int i = 0;
+			while(curr != null){
+				if(! s.equals(curr.getText())){			
+					if(curr.getChild(ch[i])!=null){
+						curr=curr.getChild(ch[i]);
+					i++;}
+					else return false;					
+				} else {
+					return true;
+			}
+		}
+			return false;
 	}
+		
+	 
+
 
 	/** 
 	 *  * Returns up to the n "best" predictions, including the word itself,
