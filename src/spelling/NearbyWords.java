@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 
 /**
@@ -143,13 +144,49 @@ public class NearbyWords implements SpellingSuggest {
 		visited.add(word);
 					
 		// TODO: Implement the remainder of this method, see assignment for algorithm
+		/**while the queue has elements and we need more suggestions
+		/*  remove the word from the start of the queue and assign to curr
+		/*  get a list of neighbors (words one mutation away from curr)
+		 * for each n in the list of neighbors
+		     if n is not visited
+		       add n to the visited set
+		       add n to the back of the queue
+		       if n is a word in the dictionary
+		          add n to the list of words to return
+		 */
+	
+		Queue <String> q = new LinkedList<String>();
+		q.add(word);
+		//while the queue has elements and we need more suggestions
+		while(!q.isEmpty() && numSuggestions >0 ){
+		// remove the word from the start of the queue and assign to curr
+			String curr = q.remove();
+			boolean wordsOnly = true;
+			//  get a list of neighbors (words one mutation away from curr)
+			List<String> neighbors= distanceOne(curr, wordsOnly);
+			//for each n in the list of neighbors
+			for(String n:neighbors ){
+			//	if n is not visited
+				if(!visited.contains(n)){
+					//   add n to the visited set
+					visited.add(n);
+					// add n to the back of the queue
+					q.add(n);
+					//    if n is a word in the dictionary
+					if(dict.isWord(n)){
+						//add n to the list of words to return
+						retList.add(n);
+					}
+				}
+			}
 		
+	
+		}
 		return retList;
-
 	}	
 
    public static void main(String[] args) {
-	   /* basic testing code to get started
+	   // basic testing code to get started
 	   String word = "i";
 	   // Pass NearbyWords any Dictionary implementation you prefer
 	   Dictionary d = new DictionaryHashSet();
@@ -163,7 +200,7 @@ public class NearbyWords implements SpellingSuggest {
 	   List<String> suggest = w.suggestions(word, 10);
 	   System.out.println("Spelling Suggestions for \""+word+"\" are:");
 	   System.out.println(suggest);
-	   */
+	  
    }
 
 }
