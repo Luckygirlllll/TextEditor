@@ -118,6 +118,7 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 		output=output+currWord;
 //		while you need more words
 //		   find the "node" corresponding to "currWord" in the list
+		if (numWords!=0){
 		for (int i = 0; i < wordList.size(); i++) {
 			node = wordList.get(i);
 			currWord = node.getWord();
@@ -134,6 +135,9 @@ public class MarkovTextGeneratorLoL implements MarkovTextGenerator {
 			wordlistsize++;
 		}
 		return output;
+		}
+		String a="";
+		return a;
 	}
 
 	
